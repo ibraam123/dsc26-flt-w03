@@ -33,14 +33,16 @@ class PracticeScreen extends StatelessWidget {
             ],
           ),
           body: switch (state) {
-            PracticeInitial() || PracticeLoading() => const PracticeLoadingView(),
-            PracticeSuccess(questions: final questions) =>
-              PracticeListView(questions: questions),
+            PracticeInitial() ||
+            PracticeLoading() => const PracticeLoadingView(),
+            PracticeSuccess(questions: final questions) => PracticeListView(
+              questions: questions,
+            ),
             PracticeEmpty() => const PracticeEmptyView(),
             PracticeFailure(failure: final failure) => PracticeErrorView(
-                failure: failure,
-                onRetry: () => context.read<PracticeCubit>().loadQuestions(),
-              ),
+              failure: failure,
+              onRetry: () => context.read<PracticeCubit>().loadQuestions(),
+            ),
           },
         );
       },

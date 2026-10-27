@@ -17,10 +17,9 @@ Widget buildPracticeApp({
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
     ),
     home: BlocProvider(
-      create: (context) => PracticeCubit(
-        repository: repository,
-        studentId: studentId,
-      )..loadQuestions(),
+      create: (context) =>
+          PracticeCubit(repository: repository, studentId: studentId)
+            ..loadQuestions(),
       child: const PracticeScreen(),
     ),
   );

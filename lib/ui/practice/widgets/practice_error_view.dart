@@ -21,7 +21,8 @@ class PracticeErrorView extends StatelessWidget {
     return switch (failure) {
       Offline() =>
         'لا يتوفر اتصال بالإنترنت. يرجى التحقق من الشبكة والمحاولة مجدداً.',
-      TimedOut() => 'استغرقت الاستجابة وقتاً أطول من المتوقع. يرجى إعادة المحاولة.',
+      TimedOut() =>
+        'استغرقت الاستجابة وقتاً أطول من المتوقع. يرجى إعادة المحاولة.',
       RateLimited() =>
         'تم إرسال طلبات كثيرة في وقت قصير. يرجى الانتظار قليلاً ثم المحاولة.',
       ServerError() => 'الخادم يواجه مشكلة مؤقتة حالياً. يرجى المحاولة لاحقاً.',
@@ -51,17 +52,16 @@ class PracticeErrorView extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               isUnauthorized ? 'مطلوب تسجيل الدخول' : 'حدث خطأ في التحميل',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(context).textTheme.titleLarge
+                  ?.copyWith(fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
               _getFriendlyMessage(failure),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),

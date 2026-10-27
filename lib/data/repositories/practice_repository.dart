@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_initializing_formals
+
 import '../../domain/models/question.dart';
 import '../../utils/result.dart';
 import '../services/api_failure.dart';
@@ -7,14 +9,13 @@ import '../services/question_api.dart';
 ///
 /// Keep the constructor and the signature of [nextQuestions] exactly.
 class PracticeRepository {
-  // ignore: prefer_initializing_formals
   PracticeRepository({
     required QuestionApi api,
     required Future<void> Function(Duration) sleep,
     int maxRetries = 2,
-  })  : _api = api,
-        _sleep = sleep,
-        _maxRetries = maxRetries;
+  }) : _api = api,
+       _sleep = sleep,
+       _maxRetries = maxRetries;
 
   final QuestionApi _api;
   final Future<void> Function(Duration) _sleep;

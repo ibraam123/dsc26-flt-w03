@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_initializing_formals
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -11,14 +13,13 @@ import 'api_failure.dart';
 ///
 /// Keep the constructor and the signature of [fetchNext] exactly.
 class QuestionApi {
-  // ignore: prefer_initializing_formals
   QuestionApi({
     required http.Client client,
     required Uri baseUrl,
     Duration timeout = const Duration(seconds: 10),
-  })  : _client = client,
-        _baseUrl = baseUrl,
-        _timeout = timeout;
+  }) : _client = client,
+       _baseUrl = baseUrl,
+       _timeout = timeout;
 
   final http.Client _client;
   final Uri _baseUrl;
@@ -55,10 +56,9 @@ class QuestionApi {
 
     final http.Response response;
     try {
-      response = await _client.get(
-        url,
-        headers: const {'Accept': 'application/json'},
-      ).timeout(_timeout);
+      response = await _client
+          .get(url, headers: const {'Accept': 'application/json'})
+          .timeout(_timeout);
     } on TimeoutException {
       return const Err(TimedOut());
     } on http.ClientException {

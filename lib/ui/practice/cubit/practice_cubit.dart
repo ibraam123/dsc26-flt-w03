@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_initializing_formals
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/repositories/practice_repository.dart';
@@ -9,9 +11,9 @@ class PracticeCubit extends Cubit<PracticeState> {
   PracticeCubit({
     required PracticeRepository repository,
     required String studentId,
-  })  : _repository = repository,
-        _studentId = studentId,
-        super(const PracticeInitial());
+  }) : _repository = repository,
+       _studentId = studentId,
+       super(const PracticeInitial());
 
   final PracticeRepository _repository;
   final String _studentId;

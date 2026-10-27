@@ -42,75 +42,154 @@ void main() {
       expect(question.choices.length, 6);
     });
 
-    test('throws FormatException when id is missing, not a string, or empty', () {
-      expect(
-        () => Question.fromJson({'skillId': 's', 'stem': 'stem', 'choices': ['a', 'b']}),
-        throwsFormatException,
-      );
-      expect(
-        () => Question.fromJson({'id': 123, 'skillId': 's', 'stem': 'stem', 'choices': ['a', 'b']}),
-        throwsFormatException,
-      );
-      expect(
-        () => Question.fromJson({'id': '', 'skillId': 's', 'stem': 'stem', 'choices': ['a', 'b']}),
-        throwsFormatException,
-      );
-    });
+    test(
+      'throws FormatException when id is missing, not a string, or empty',
+      () {
+        expect(
+          () => Question.fromJson({
+            'skillId': 's',
+            'stem': 'stem',
+            'choices': ['a', 'b'],
+          }),
+          throwsFormatException,
+        );
+        expect(
+          () => Question.fromJson({
+            'id': 123,
+            'skillId': 's',
+            'stem': 'stem',
+            'choices': ['a', 'b'],
+          }),
+          throwsFormatException,
+        );
+        expect(
+          () => Question.fromJson({
+            'id': '',
+            'skillId': 's',
+            'stem': 'stem',
+            'choices': ['a', 'b'],
+          }),
+          throwsFormatException,
+        );
+      },
+    );
 
-    test('throws FormatException when skillId is missing, not a string, or empty', () {
-      expect(
-        () => Question.fromJson({'id': 'q', 'stem': 'stem', 'choices': ['a', 'b']}),
-        throwsFormatException,
-      );
-      expect(
-        () => Question.fromJson({'id': 'q', 'skillId': 456, 'stem': 'stem', 'choices': ['a', 'b']}),
-        throwsFormatException,
-      );
-      expect(
-        () => Question.fromJson({'id': 'q', 'skillId': '', 'stem': 'stem', 'choices': ['a', 'b']}),
-        throwsFormatException,
-      );
-    });
+    test(
+      'throws FormatException when skillId is missing, not a string, or empty',
+      () {
+        expect(
+          () => Question.fromJson({
+            'id': 'q',
+            'stem': 'stem',
+            'choices': ['a', 'b'],
+          }),
+          throwsFormatException,
+        );
+        expect(
+          () => Question.fromJson({
+            'id': 'q',
+            'skillId': 456,
+            'stem': 'stem',
+            'choices': ['a', 'b'],
+          }),
+          throwsFormatException,
+        );
+        expect(
+          () => Question.fromJson({
+            'id': 'q',
+            'skillId': '',
+            'stem': 'stem',
+            'choices': ['a', 'b'],
+          }),
+          throwsFormatException,
+        );
+      },
+    );
 
-    test('throws FormatException when stem is missing, not a string, or empty', () {
-      expect(
-        () => Question.fromJson({'id': 'q', 'skillId': 's', 'choices': ['a', 'b']}),
-        throwsFormatException,
-      );
-      expect(
-        () => Question.fromJson({'id': 'q', 'skillId': 's', 'stem': true, 'choices': ['a', 'b']}),
-        throwsFormatException,
-      );
-      expect(
-        () => Question.fromJson({'id': 'q', 'skillId': 's', 'stem': '', 'choices': ['a', 'b']}),
-        throwsFormatException,
-      );
-    });
+    test(
+      'throws FormatException when stem is missing, not a string, or empty',
+      () {
+        expect(
+          () => Question.fromJson({
+            'id': 'q',
+            'skillId': 's',
+            'choices': ['a', 'b'],
+          }),
+          throwsFormatException,
+        );
+        expect(
+          () => Question.fromJson({
+            'id': 'q',
+            'skillId': 's',
+            'stem': true,
+            'choices': ['a', 'b'],
+          }),
+          throwsFormatException,
+        );
+        expect(
+          () => Question.fromJson({
+            'id': 'q',
+            'skillId': 's',
+            'stem': '',
+            'choices': ['a', 'b'],
+          }),
+          throwsFormatException,
+        );
+      },
+    );
 
     test('throws FormatException when choices is not a list, too short, or too long', () {
       expect(
-        () => Question.fromJson({'id': 'q', 'skillId': 's', 'stem': 'stem', 'choices': 'not_list'}),
+        () => Question.fromJson({
+          'id': 'q',
+          'skillId': 's',
+          'stem': 'stem',
+          'choices': 'not_list',
+        }),
         throwsFormatException,
       );
       expect(
-        () => Question.fromJson({'id': 'q', 'skillId': 's', 'stem': 'stem', 'choices': ['one']}),
+        () => Question.fromJson({
+          'id': 'q',
+          'skillId': 's',
+          'stem': 'stem',
+          'choices': ['one'],
+        }),
         throwsFormatException,
       );
       expect(
-        () => Question.fromJson({'id': 'q', 'skillId': 's', 'stem': 'stem', 'choices': ['1', '2', '3', '4', '5', '6', '7']}),
+        () => Question.fromJson({
+          'id': 'q',
+          'skillId': 's',
+          'stem': 'stem',
+          'choices': ['1', '2', '3', '4', '5', '6', '7'],
+        }),
         throwsFormatException,
       );
     });
 
-    test('throws FormatException when any choice is not a string or is empty', () {
-      expect(
-        () => Question.fromJson({'id': 'q', 'skillId': 's', 'stem': 'stem', 'choices': ['a', 2]}),
-        throwsFormatException,
-      );
-      expect(
-        () => Question.fromJson({'id': 'q', 'skillId': 's', 'stem': 'stem', 'choices': ['a', '']}),
-        throwsFormatException,
-      );
-    });
+    test(
+      'throws FormatException when any choice is not a string or is empty',
+      () {
+        expect(
+          () => Question.fromJson({
+            'id': 'q',
+            'skillId': 's',
+            'stem': 'stem',
+            'choices': ['a', 2],
+          }),
+          throwsFormatException,
+        );
+        expect(
+          () => Question.fromJson({
+            'id': 'q',
+            'skillId': 's',
+            'stem': 'stem',
+            'choices': ['a', ''],
+          }),
+          throwsFormatException,
+        );
+      },
+    );
   });
 }

@@ -25,7 +25,8 @@ final class Question {
     final skillId = json['skillId'];
     if (skillId is! String || skillId.isEmpty) {
       throw const FormatException(
-          'Question "skillId" must be a non-empty string');
+        'Question "skillId" must be a non-empty string',
+      );
     }
 
     final stem = json['stem'];
@@ -40,7 +41,8 @@ final class Question {
 
     if (rawChoices.length < 2 || rawChoices.length > 6) {
       throw const FormatException(
-          'Question "choices" must contain between 2 and 6 items');
+        'Question "choices" must contain between 2 and 6 items',
+      );
     }
 
     final choices = <String>[];

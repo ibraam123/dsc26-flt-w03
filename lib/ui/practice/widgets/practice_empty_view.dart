@@ -21,17 +21,16 @@ class PracticeEmptyView extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               "لقد أتممت تدريبات اليوم!",
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(context).textTheme.titleLarge
+                  ?.copyWith(fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
               "لا توجد أسئلة متبقية حالياً. عد لاحقاً لمزيد من التمارين.",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
               textAlign: TextAlign.center,
             ),
           ],

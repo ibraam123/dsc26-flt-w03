@@ -4,10 +4,7 @@ import '../../../domain/models/question.dart';
 
 /// Renders the list of practice questions.
 class PracticeListView extends StatelessWidget {
-  const PracticeListView({
-    super.key,
-    required this.questions,
-  });
+  const PracticeListView({super.key, required this.questions});
 
   final List<Question> questions;
 
@@ -17,7 +14,7 @@ class PracticeListView extends StatelessWidget {
       key: const Key('practice-list'),
       padding: const EdgeInsets.all(16),
       itemCount: questions.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 16),
+      separatorBuilder: (context, index) => const SizedBox(height: 16),
       itemBuilder: (context, index) {
         final q = questions[index];
         return Card(
@@ -33,9 +30,8 @@ class PracticeListView extends StatelessWidget {
               children: [
                 Text(
                   q.stem,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: Theme.of(context).textTheme.titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
                 ...q.choices.asMap().entries.map((entry) {

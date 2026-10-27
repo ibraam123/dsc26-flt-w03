@@ -10,13 +10,6 @@ import 'package:http/testing.dart';
 void main() {
   final baseUri = Uri.parse('https://api.masaraat.test');
 
-  const question = Question(
-    id: 'q1',
-    skillId: 's1',
-    stem: 'stem',
-    choices: ['c1', 'c2'],
-  );
-
   group('PracticeRepository immediate returns', () {
     test('returns Ok immediately on first call with 0 sleeps', () async {
       final waits = <Duration>[];
@@ -146,7 +139,11 @@ void main() {
         api: QuestionApi(
           client: MockClient((_) async {
             calls++;
-            return http.Response('rate limited', 429, headers: {'retry-after': '45'});
+            return http.Response(
+              'rate limited',
+              429,
+              headers: {'retry-after': '45'},
+            );
           }),
           baseUrl: baseUri,
         ),
@@ -160,32 +157,39 @@ void main() {
       expect(waits, [const Duration(seconds: 30)]); // capped from 45 to 30
     });
 
-    test('handles sequence: 429 (retry-after: 7), then 503, then 200', () async {
-      final waits = <Duration>[];
-      var calls = 0;
-      final repo = PracticeRepository(
-        api: QuestionApi(
-          client: MockClient((_) async {
-            calls++;
-            if (calls == 1) {
-              return http.Response('rate limited', 429, headers: {'retry-after': '7'});
-            } else if (calls == 2) {
-              return http.Response('server error', 503);
-            }
-            return http.Response(
-              '{"questions": [{"id": "q1", "skillId": "s1", "stem": "stem", "choices": ["c1", "c2"]}]}',
-              200,
-            );
-          }),
-          baseUrl: baseUri,
-        ),
-        sleep: (d) async => waits.add(d),
-      );
+    test(
+      'handles sequence: 429 (retry-after: 7), then 503, then 200',
+      () async {
+        final waits = <Duration>[];
+        var calls = 0;
+        final repo = PracticeRepository(
+          api: QuestionApi(
+            client: MockClient((_) async {
+              calls++;
+              if (calls == 1) {
+                return http.Response(
+                  'rate limited',
+                  429,
+                  headers: {'retry-after': '7'},
+                );
+              } else if (calls == 2) {
+                return http.Response('server error', 503);
+              }
+              return http.Response(
+                '{"questions": [{"id": "q1", "skillId": "s1", "stem": "stem", "choices": ["c1", "c2"]}]}',
+                200,
+              );
+            }),
+            baseUrl: baseUri,
+          ),
+          sleep: (d) async => waits.add(d),
+        );
 
-      final result = await repo.nextQuestions('std-1');
-      expect(result, isA<Ok<List<Question>>>());
-      expect(calls, 3);
-      expect(waits, [const Duration(seconds: 7), const Duration(seconds: 2)]);
-    });
+        final result = await repo.nextQuestions('std-1');
+        expect(result, isA<Ok<List<Question>>>());
+        expect(calls, 3);
+        expect(waits, [const Duration(seconds: 7), const Duration(seconds: 2)]);
+      },
+    );
   });
 }
