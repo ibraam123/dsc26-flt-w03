@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'data/repositories/practice_repository.dart';
+import 'ui/practice/cubit/practice_cubit.dart';
+import 'ui/practice/practice_screen.dart';
 
 /// The practice app. The tests only ever call this function.
-///
-/// TODO(W3): load on start; show loading, the list, the empty state or the
-/// failure view; a refresh action in the app bar, disabled while loading.
-/// Use ChangeNotifier, Riverpod or Bloc inside, your choice.
 Widget buildPracticeApp({
   required PracticeRepository repository,
   String studentId = 'demo',
 }) {
-  return const MaterialApp(
-    home: Scaffold(body: Center(child: Text('TODO: practice screen'))),
+  return MaterialApp(
+    title: 'Masaraat Practice',
+    theme: ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    ),
+    home: BlocProvider(
+      create: (context) => PracticeCubit(
+        repository: repository,
+        studentId: studentId,
+      )..loadQuestions(),
+      child: const PracticeScreen(),
+    ),
   );
 }
